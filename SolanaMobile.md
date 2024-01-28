@@ -95,9 +95,9 @@ Now lets quickly go over the features of the dApp Scaffold.<br />
 Connect Button<br />
 Clicking on the Connect Wallet button will 'connect' you to a locally installed MWA-compatible wallet. It uses the Mobile Wallet Adapter SDK to request authorization from the wallet and receives your wallet account's info, like the public key.<br />
 On click, it starts a wallet session with transact and calls authorizeSession from the AuthorizationProvider class.<br />
-``await transact(async wallet =>`` {<br />
-   `` await authorizeSession(wallet);``<br />
-``});``<br />
+>     await transact(async wallet =>{<br />
+    await authorizeSession(wallet);<br />
+    });<br />
 AuthorizationProvider is a helper class that manages wallet authorization. It calls `wallet.authorize()` on first connect, and for subsequent connects it re-uses the authToken in `wallet.reauthorize()`.<br />
 >     const authorizeSession = useCallback(
     async (wallet: AuthorizeAPI & ReauthorizeAPI) => {
@@ -115,20 +115,20 @@ AuthorizationProvider is a helper class that manages wallet authorization. It ca
         .selectedAccount;
     },
     [authorization, handleAuthorizationResult],
->     );
+     );
 <br />
 <b>Account Info</b><br />
 This is a simple component takes a balance in lamports and converts it to units of SOL for display. <br />
 Balance fetching<br />
 In the `MainScreen.tsx` component, we fetch the user's wallet balance when it is available, and pass it into the AccountInfo component. To do so, we use the connection class and just call the getBalance function, which is part of the API spec.<br />
 >     const {connection} = useConnection();
->     const fetchAndUpdateBalance = useCallback(
+     const fetchAndUpdateBalance = useCallback(
     async (account: Account) => {
         const fetchedBalance = await connection.getBalance(account.publicKey);
         setBalance(fetchedBalance);
     },
     [connection],
->     );<br />
+     );<br />
 <b>Airdrop Button</b><br />
 This component takes in a user's wallet publicKey and requests an airdrop of lamports to that address on click. Again, we use the connection class and call the requestAirdrop RPC method, as part of the API spec.<br />
 >     const requestAirdrop = useCallback(async () => {
@@ -137,7 +137,7 @@ This component takes in a user's wallet publicKey and requests an airdrop of lam
         LAMPORTS_PER_AIRDROP,
     );
     return await connection.confirmTransaction(signature);
->     }, [connection, selectedAccount]);<br />
+     }, [connection, selectedAccount]);<br />
 
 <b>Sign Transaction/Message Button</b><br />
 The SignMessageButton component takes in a messageBuffer byte array and calls wallet.signMessages(). This requests the connected wallet to sign the message with the user's private key.<br />
@@ -159,8 +159,8 @@ The SignTransactionButton component does several things on click. Within the wal
         });
     },
     [authorizeSession],
->     );
->     const signTransaction = useCallback(async () => {
+     );
+     const signTransaction = useCallback(async () => {
     return await transact(async (wallet: Web3MobileWallet) => {
         const connection = new Connection(clusterApiUrl('devnet'), 'confirmed');
 
@@ -192,7 +192,7 @@ The SignTransactionButton component does several things on click. Within the wal
 
         return signedTransactions[0];
     }, [authorizeSession]);
-});
+     });
 
 Now that we've gone over the existing scaffold, lets add some new functionality to it.<br />
 <b>Let’s Build Mobile NFT Minter:-</b><br />
@@ -212,7 +212,7 @@ The Metaplex JS SDK was originally written for a Browser/Node environment, so ce
 Add polyfills to resolver in `metro.config.js` <br />
 Adding the resolver property lets the Metro know which packages to substitute with when seeing a require <br />
 >     module.exports = {
->     resolver: {
+    resolver: {
     extraNodeModules: {
       crypto: require.resolve('crypto-browserify'),
       stream: require.resolve('readable-stream'),
@@ -220,8 +220,8 @@ Adding the resolver property lets the Metro know which packages to substitute wi
       path: require.resolve('path-browserify'),
       url: require.resolve('react-native-url-polyfill'),
     },
-  >     },
-  >     transformer: {
+       },
+      transformer: {
     getTransformOptions: async () => ({
       transform: {
         experimentalImportSupport: false,
@@ -247,12 +247,159 @@ In addition to the Metaplex JS SDK, the app will use several other libraries tha
 `npx react-native run-android` <br />
 At this point, your app should build, install into your device, and launch automatically.<br />
 
-### How does minting work?<br />
+## How does minting work?<br />
 The end to end procedure of minting a photo NFT roughly follows these steps:<br />
 1.	Select a photo and upload it to a storage provider.<br />
 2.	Upload a JSON object containing metadata that conforms to the Metaplex NFT Standard, to a storage provider.<br />
 3.	Submit a transaction to the network that creates your NFT on chain.<br />
 
+## Uploading to IPFS with NFT.storage
+In this tutorial, we choose IPFS, a decentralized storage provider, to host the selected photo and the metadata object. <br />
+We'll also be using `NFT.storage` to help upload directly to IPFS, through their HTTP API. You can sign up for a free API key on their website. <br />
+### Selecting the photo
+You need to select an existing photo from our gallery. To present a picker UI and retrieve the file path, use `launchImageLibrary` from the `react-native-image-picker` library.
+>     import {launchImageLibrary} from 'react-native-image-picker';
+     const photo = await launchImageLibrary({
+    selectionLimit: 1,
+    mediaType: 'photo',
+    });
+     const selectedPhoto = photo?.assets?.[0];
+    if (!selectedPhoto?.uri) {
+    console.warn('Selected photo not found');
+    return;
+     }
+    const imagePath = selectedPhoto.uri;
+### Upload the photo
+Now that we have the image path, we need to upload the raw bytes of the file to IPFS, using the `NFT.storage /upload` endpoint.<br />
 
+The steps:
 
+Use the `rn-fetch-blob` library to read the image file into a Base 64 string.<br />
+Convert to raw bytes by decoding the Base64 string with `Buffer`.<br />
+Use `fetch` to send a request containing the image bytes to the upload endpoint.<br />
 
+     // Read the image file and get the base64 string.
+    const imageBytesInBase64: string = await RNFetchBlob.fs.readFile(
+    imagePath,
+    'base64',
+    );
+
+    // Convert base64 into raw bytes.
+    const bytes = Buffer.from(imageBytesInBase64, 'base64');
+
+    // Upload the image to IPFS by sending a POST request to the NFT.storage upload endpoint.
+    const headers = {
+    Accept: 'application/json',
+    Authorization: `Bearer ${Config.NFT_STORAGE_API_KEY}`,
+    };
+    const imageUpload = await fetch('https://api.nft.storage/upload', {
+    method: 'POST',
+    headers: {
+        ...headers,
+        'Content-Type': 'image/jpg',
+    },
+    body: bytes,
+    });
+
+    const imageData = await imageUpload.json();
+    console.log(imageData.value.cid);
+If successful, the `imageData.value.cid` will contain a valid CID (Content Identifier). This is a string that uniquely identifies your uploaded asset.<br />
+
+You can view your uploaded asset on an IPFS gateway by passing in the CID in the URL (e.g:` https://ipfs.io/ipfs/<cid>`). View an example of an uploaded photo on `ipfs.io`.<br />
+
+### Uploading the metadata
+Next, we need to construct a metadata object that conforms to the Metaplex NFT Standard, then upload it to the same /upload endpoint.<br />
+Metadata fields: <br />
+
+Name: The name of the NFT.<br />
+Description: A description of the NFT.<br />
+Image: A URL that hosts the photo. In this case, we use an ipfs.io URL with the CID of the uploaded photo.<br />
+
+    // Construct the metadata fields.
+    const metadata = JSON.stringify({ 
+    name,
+    description,
+    image: `https://ipfs.io/ipfs/${imageData.value.cid}`,
+    });
+    // Upload to IPFS
+    const metadataUpload = await fetch('https://api.nft.storage/upload', {
+    method: 'POST',
+    headers: {
+        ...headers,
+        'Content-Type': 'application/json',
+    },
+    body: metadata,
+    });
+
+    const metadataData = await metadataUpload.json();
+    console.log(metadataData.value.cid);
+
+If successful,` metadataData.value.cid` will now contain a CID that points to a JSON object representing the NFT metadata. View an example of an uploaded metadata object.
+
+To recap, we now have two CIDs that are viewable on IPFS. First, the CID of our uploaded photo, and second, the CID of JSON Metadata (which has a reference to the photo CID in the `image` field).
+
+## Precomputing the CID
+You may notice in the example app, that during the upload step in `uploadToIPFS` we're able to precompute the CID of the photo asset before actually uploading it to IPFS. This is an optimization that allows us to construct and upload the metadata object, without waiting for the photo upload to complete and return the CID.
+
+We take advantage of this by uploading both the photo and metadata asynchronously.
+>     // Fire off both uploads aysnc
+     return Promise.all([
+    imageUpload.then(response => response.json()),
+    metadataUpload.then(response => response.json()),
+    ]);
+To compute the CID from the bytes of a given asset, see the getCid function.
+
+>     import {CID, hasher} from 'multiformats';
+     const crypto = require('crypto-browserify');
+
+    const SHA_256_CODE = 0x12;
+    const IPLD_RAW_BINARY_CODE = 0x55;
+
+    const getCid = async (bytes: Buffer) => {
+    const sha256 = hasher.from({
+    // As per multiformats table
+    // https://github.com/multiformats/multicodec/blob/master/table.csv#L9
+    name: 'sha2-256',
+    code: SHA_256_CODE,
+    encode: input =>
+      new Uint8Array(crypto.createHash('sha256').update(input).digest()),
+     });
+     const hash = await sha256.digest(bytes);
+     const cid = await CID.create(1, IPLD_RAW_BINARY_CODE, hash);
+
+    return cid;
+    };
+## Minting the NFT
+At this point we have completed the IPFS uploading steps and all that is left is to mint the NFT on chain. To do so, we'll use the Metaplex JS SDK.<br />
+
+<b>Create a Metaplex Instance</>
+To interact with Metaplex onchain programs, instantiate a `Metaplex` instance provided by the SDK.
+
+Follow this section in the Metaplex guide, to create an MWA Identity Signer plugin. We'll need this so that the `Metaplex` instance will be able to request wallet signing through MWA.    
+create the Metaplex instance with the useMetaplex hook.
+``import useMetaplex from '../metaplex-util/useMetaplex';
+const {metaplex} = useMetaplex(connection, selectedAccount, authorizeSession);``
+## Create the NFT
+With the `metaplex` instance, we can now access the `nfts()` module that provides a collection of functions that make it simple to interact with on chain programs and submit transactions.
+
+To mint an NFT, call the `create` function which takes in a JSON object corresponding to the Token Metadata Standard.
+
+This will prompt the user to sign a transaction using MWA, then submit the transaction to the specified RPC.
+
+>     const {nft, response} = await metaplex.nfts().create({
+    name: nftName,
+    uri: `https://ipfs.io/ipfs/${metadataUploadData.value.cid}`,
+    sellerFeeBasisPoints: 0,
+    tokenOwner: selectedAccount?.publicKey,
+    });
+
+    console.log(nft.address.toBase58())
+    console.log(response.signature)
+## Launch the App    
+Make sure your emulator/device is running, then build and launch the app.
+`npx react-native run-android`
+You DApp should be look like this
+![Bird Eye View](https://github.com/adi99/Building-Mobile-Apps-on-Solana/blob/main/nftminter1.jpg)
+![Bird Eye View](https://github.com/adi99/Building-Mobile-Apps-on-Solana/blob/main/nftminter2.jpg)
+![Bird Eye View](https://github.com/adi99/Building-Mobile-Apps-on-Solana/blob/main/nftminter3.jpg)
+    
