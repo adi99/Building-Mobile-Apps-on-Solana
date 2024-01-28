@@ -85,9 +85,8 @@ This tutorial will be using the fakewallet app to test your app's integration wi
 Clone the React Native dApp Scaffold<br />
 This dApp will build off the React Native Scaffold dApp which already has a simple user interface that allows you to connect to a mobile wallet, request an airdrop, and sign transactions.<br />
 Initialize a template app and Enter the directory and install the project dependencies.<br />
-``
-npx react-native init FirstDappTutorial --template https://github.com/solana-mobile/solana-mobile-dapp-scaffold.git <br />
-cd FirstDappTutorial && yarn install`` <br />
+``npx react-native init FirstDappTutorial --template https://github.com/solana-mobile/solana-mobile-dapp-scaffold.git ``<br />
+``cd FirstDappTutorial && yarn install`` <br />
 Make sure your emulator/device is running, then build and launch the app.<br />
 ``npx react-native run-android``<br />
 At this point, your app should build, install into your device, and launch automatically. You should also see the Metro Bundler console window pop up.<br />
@@ -96,9 +95,9 @@ Now lets quickly go over the features of the dApp Scaffold.<br />
 Connect Button<br />
 Clicking on the Connect Wallet button will 'connect' you to a locally installed MWA-compatible wallet. It uses the Mobile Wallet Adapter SDK to request authorization from the wallet and receives your wallet account's info, like the public key.<br />
 On click, it starts a wallet session with transact and calls authorizeSession from the AuthorizationProvider class.<br />
-``await transact(async wallet => {
-    await authorizeSession(wallet);
-});``<br />
+``await transact(async wallet =>`` {<br />
+   `` await authorizeSession(wallet);``<br />
+``});``<br />
 AuthorizationProvider is a helper class that manages wallet authorization. It calls wallet.authorize() on first connect, and for subsequent connects it re-uses the authToken in wallet.reauthorize().<br />
 const authorizeSession = useCallback(
     async (wallet: AuthorizeAPI & ReauthorizeAPI) => {
