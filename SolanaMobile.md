@@ -98,8 +98,8 @@ On click, it starts a wallet session with transact and calls authorizeSession fr
 ``await transact(async wallet =>`` {<br />
    `` await authorizeSession(wallet);``<br />
 ``});``<br />
-AuthorizationProvider is a helper class that manages wallet authorization. It calls wallet.authorize() on first connect, and for subsequent connects it re-uses the authToken in wallet.reauthorize().<br />
-const authorizeSession = useCallback(
+AuthorizationProvider is a helper class that manages wallet authorization. It calls `wallet.authorize()` on first connect, and for subsequent connects it re-uses the authToken in `wallet.reauthorize()`.<br />
+``const authorizeSession = useCallback(
     async (wallet: AuthorizeAPI & ReauthorizeAPI) => {
         const authorizationResult = await (authorization
         ? wallet.reauthorize({
@@ -115,7 +115,8 @@ const authorizeSession = useCallback(
         .selectedAccount;
     },
     [authorization, handleAuthorizationResult],
-);<br />
+);``
+<br />
 Account Info<br />
 This is a simple component takes a balance in lamports and converts it to units of SOL for display. <br />
 Balance fetching<br />
@@ -140,6 +141,8 @@ const requestAirdrop = useCallback(async () => {
 Sign Transaction/Message Button<br />
 The SignMessageButton component takes in a messageBuffer byte array and calls wallet.signMessages(). This requests the connected wallet to sign the message with the user's private key.<br />
 The SignTransactionButton component does several things on click. Within the wallet session, it constructs a Transaction with a SystemProgram.transfer instruction, then requests the wallet to provide a signature in the transaction.<br />
+
+
 const signMessage = useCallback(
     async (messageBuffer: Uint8Array) => {
         return await transact(async (wallet: Web3MobileWallet) => {
