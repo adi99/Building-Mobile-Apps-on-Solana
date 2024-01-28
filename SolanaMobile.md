@@ -399,7 +399,6 @@ This will prompt the user to sign a transaction using MWA, then submit the trans
 Make sure your emulator/device is running, then build and launch the app.<br />
 `npx react-native run-android`
 You DApp should be look like this:<br />
-![Bird Eye View](https://github.com/adi99/Building-Mobile-Apps-on-Solana/blob/main/nftminter1.jpg)
-![Bird Eye View](https://github.com/adi99/Building-Mobile-Apps-on-Solana/blob/main/nftminter2.gif)
-![Bird Eye View](https://github.com/adi99/Building-Mobile-Apps-on-Solana/blob/main/nftminter3.jpg)
+:-------------------------:|:-------------------------:|:-------------------------:
+![Bird Eye View](https://github.com/adi99/Building-Mobile-Apps-on-Solana/blob/main/nftminter1.jpg) | ![Bird Eye View](https://github.com/adi99/Building-Mobile-Apps-on-Solana/blob/main/nftminter2.gif) | ![Bird Eye View](https://github.com/adi99/Building-Mobile-Apps-on-Solana/blob/main/nftminter3.jpg)
     
