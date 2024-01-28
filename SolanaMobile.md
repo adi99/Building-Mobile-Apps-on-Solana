@@ -9,22 +9,22 @@ The Solana Mobile Stack shows a new path forward on Solana that is open source, 
 ## Mobile dApp Architecture Overview
 Bird’s Eye view of Mobile DApp’s interaction with mobile wallet and Solana Network.
 ![Bird Eye View](https://github.com/adi99/Building-Mobile-Apps-on-Solana/blob/main/dapp_architecture_full.svg)
-The Mobile Wallet Adapter (MWA) protocol is what defines the communication exchange between a dApp and a mobile wallet. In the protocol, the dApp sends requests (i.e: authorization or signing), while the wallet is responsible for displaying these requests to the user and responding to the dApp if approved.
-Development Setup
-Before starting you need the following perquisite for Android Mobile Development:-
-Install Android Studio:- You need to install Android Studio to build apps and manage your device/emulator.  While on Android Studio installation wizard, make sure the boxes next to all of the following items are checked:
-•	Android SDK
-•	Android SDK Platform
-•	Android Virtual Device
-1-	Setup Device/Emulator:- To test and preview your app as you develop, you can build and deploy your app to an Android device or emulator in Android Studio
-2-	Install a wallet App:- The Mobile Wallet Adapter (MWA) library allows your dApp to connect and interface with Wallet Apps that implement the MWA protocol. For testing, you want to have an MWA-compatible wallet on the same device or emulator as your dApp.
-The fakewallet app is a 'fake' Mobile Wallet Adapter compliant wallet. Install it on your Android emulator or device. It does not store persistent keypairs, and the wallet is "reset" each time the app is exited.
-Installation steps
-1.	Clone the Mobile Wallet Adapter repo, containing the fakewallet app from the GitHub repository
-git clone https://github.com/solana-mobile/mobile-wallet-adapter.git
-2.	In Android Studio, Open project > Navigate to the cloned directory > Select mobile-wallet-adapter/android/build.gradle
-3.	After Android Studio finishes loading the project, select fakewallet in the build/run configuration dropdown in the top right
- 
+<b> The Mobile Wallet Adapter (MWA) </b> protocol is what defines the communication exchange between a dApp and a mobile wallet. In the protocol, the dApp sends requests (i.e: authorization or signing), while the wallet is responsible for displaying these requests to the user and responding to the dApp if approved. <br />
+## Development Setup
+Before starting you need the following perquisite for Android Mobile Development:-<br />
+<b1-Install Android Studio:- You need to install Android Studio to build apps and manage your device/emulator.  While on Android Studio installation wizard, make sure the boxes next to all of the following items are checked:-<br />
+•	Android SDK <br />
+•	Android SDK Platform <br />
+•	Android Virtual Device <br />
+2-	Setup Device/Emulator:- To test and preview your app as you develop, you can build and deploy your app to an Android device or emulator in Android Studio <br />
+3-	Install a wallet App:- The Mobile Wallet Adapter (MWA) library allows your dApp to connect and interface with Wallet Apps that implement the MWA protocol. For testing, you want to have an MWA-compatible wallet on the same device or emulator as your dApp.<br />
+The fakewallet app is a 'fake' Mobile Wallet Adapter compliant wallet. Install it on your Android emulator or device. It does not store persistent keypairs, and the wallet is "reset" each time the app is exited.<br />
+Installation steps<br />
+1.	Clone the Mobile Wallet Adapter repo, containing the fakewallet app from the GitHub repository<br />
+git clone https://github.com/solana-mobile/mobile-wallet-adapter.git <br />
+2.	In Android Studio, Open project > Navigate to the cloned directory > Select mobile-wallet-adapter/android/build.gradle <br />
+3.	After Android Studio finishes loading the project, select fakewallet in the build/run configuration dropdown in the top right <br />
+![Bird Eye View](https://github.com/adi99/Building-Mobile-Apps-on-Solana/blob/main/fakewallet.jpg) 
 4.	After it builds successfully, you should see the app on your Android device or emulator.
 Install real wallet apps:- fakewallet was created for implementation reference and quick testing purposes. You should also test your dApp with popular MWA-compatible wallet apps like Phantom, Solflare, and Ultimate.
  If you're planning on developing with React Native, then follow the following prerequisite:- 
