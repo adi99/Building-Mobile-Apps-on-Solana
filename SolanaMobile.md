@@ -5,48 +5,49 @@ Solana Mobile Stack (SMS) is an open-source development toolkit that enables dev
 <b>•	Solana Pay :</b> Solana Pay is a decentralized payment rail that runs on Solana. Since it is embedded in the Solana Mobile SDK, mobile wallet apps will be able to use the system features of Android phones to allow payments through QR codes, NFT taps, messages, etc.<br />
 <b>•	dApp Store :</b> The dApp store is now open for app submissions. It allows easy dApp submission and distribution.<br />
 <b>•	Saga :</b> Solana Mobile teamed up with OSOM to integrate the Solana Mobile Stack with a flagship quality device, Saga4. Saga delivers premium hardware, clean Android, and Web3 in a phone you’ll love to use. It has a 6.67” OLED Display, 512 GB Storage, 12 GB RAM.<br />
-The Solana Mobile Stack shows a new path forward on Solana that is open source, secure, optimized for web3, and easy to use. Developers can now bring the power of Solana to the computers in our pockets, not just our backpacks.
+<b>The Solana Mobile Stack</b> shows a new path forward on Solana that is open source, secure, optimized for web3, and easy to use. Developers can now bring the power of Solana to the computers in our pockets, not just our backpacks.
 ## Mobile dApp Architecture Overview
 Bird’s Eye view of Mobile DApp’s interaction with mobile wallet and Solana Network.
 ![Bird Eye View](https://github.com/adi99/Building-Mobile-Apps-on-Solana/blob/main/dapp_architecture_full.svg)
 <b> The Mobile Wallet Adapter (MWA) </b> protocol is what defines the communication exchange between a dApp and a mobile wallet. In the protocol, the dApp sends requests (i.e: authorization or signing), while the wallet is responsible for displaying these requests to the user and responding to the dApp if approved. <br />
 ## Development Setup
 Before starting you need the following perquisite for Android Mobile Development:-<br />
-<b1-Install Android Studio:- You need to install Android Studio to build apps and manage your device/emulator.  While on Android Studio installation wizard, make sure the boxes next to all of the following items are checked:-<br />
+<b>1-Install Android Studio:-</b> You need to install Android Studio to build apps and manage your device/emulator.  While on Android Studio installation wizard, make sure the boxes next to all of the following items are checked:-<br />
 •	Android SDK <br />
 •	Android SDK Platform <br />
 •	Android Virtual Device <br />
-2-	Setup Device/Emulator:- To test and preview your app as you develop, you can build and deploy your app to an Android device or emulator in Android Studio <br />
-3-	Install a wallet App:- The Mobile Wallet Adapter (MWA) library allows your dApp to connect and interface with Wallet Apps that implement the MWA protocol. For testing, you want to have an MWA-compatible wallet on the same device or emulator as your dApp.<br />
+<b>2-Setup Device/Emulator:- </b>To test and preview your app as you develop, you can build and deploy your app to an Android device or emulator in Android Studio <br />
+<b>3-Install a wallet App:-</b> The Mobile Wallet Adapter (MWA) library allows your dApp to connect and interface with Wallet Apps that implement the MWA protocol. For testing, you want to have an MWA-compatible wallet on the same device or emulator as your dApp.<br />
 The fakewallet app is a 'fake' Mobile Wallet Adapter compliant wallet. Install it on your Android emulator or device. It does not store persistent keypairs, and the wallet is "reset" each time the app is exited.<br />
-Installation steps<br />
-1.	Clone the Mobile Wallet Adapter repo, containing the fakewallet app from the GitHub repository<br />
+### Installation steps<br />
+1. Clone the Mobile Wallet Adapter repo, containing the fakewallet app from the GitHub repository<br />
 ``git clone https://github.com/solana-mobile/mobile-wallet-adapter.git`` <br />
-2.	In Android Studio, Open project > Navigate to the cloned directory > Select mobile-wallet-adapter/android/build.gradle <br />
-3.	After Android Studio finishes loading the project, select fakewallet in the build/run configuration dropdown in the top right <br />
-![Bird Eye View](https://github.com/adi99/Building-Mobile-Apps-on-Solana/blob/main/fakewallet.jpg) 
-	After it builds successfully, you should see the app on your Android device or emulator. <br />
-4- Install real wallet apps:- fakewallet was created for implementation reference and quick testing purposes. You should also test your dApp with popular MWA-compatible wallet apps like Phantom, Solflare, and Ultimate. <br />
- If you're planning on developing with React Native, then follow the following prerequisite:- <br />
-If you are new to mobile development, the easiest way to get started is with Expo Go. Expo is a set of tools and services built around React Native and, while it has many features, the most relevant feature for us right now is that it can get you writing a React Native app within minutes but it only includes native modules. If you are building production-level Dapp, you need a specific tool that might not be available in Expo Go. <br />
+2. In Android Studio, Open project > Navigate to the cloned directory > Select mobile-wallet-adapter/android/build.gradle <br />
+3. After Android Studio finishes loading the project, select fakewallet in the build/run configuration dropdown in the top right <br />
+![Bird Eye View](https://github.com/adi99/Building-Mobile-Apps-on-Solana/blob/main/fakewallet.jpg) <br />
+After it builds successfully, you should see the app on your Android device or emulator. <br />
+<b>4-Install real wallet apps:-</b> fakewallet was created for implementation reference and quick testing purposes. You should also test your dApp with popular MWA-compatible wallet apps like Phantom, Solflare, and Ultimate. <br />
+If you're planning on developing with React Native, then follow the following prerequisite:- <br />
+<b>If you are new to mobile development</b>, the easiest way to get started is with Expo Go. Expo is a set of tools and services built around React Native and, while it has many features, the most relevant feature for us right now is that it can get you writing a React Native app within minutes but it only includes native modules. <br>
+If you are building production-level Dapp, you need a specific tool that might not be available in Expo Go. <br />
 ## Perquisite:-<br />
 ### Node, JDK (java Development Kit):-<br />
 It is recommended to use an LTS version of Node. React Native also requires Java SE Development Kit (JDK). <br />
 choco install -y nodejs-lts microsoft-openjdk17 <br />
 
-1. Install Android Studio <br />
+<b> a. Install Android Studio</b> <br />
 Download and install Android Studio. While on Android Studio installation wizard, make sure the boxes next to all of the following items are checked: <br />
 •	Android SDK <br />
 •	Android SDK Platform <br />
 •	Android Virtual Device <br />
-2. Configure the ANDROID_HOME environment variable <br />
+<b> b. Configure the ANDROID_HOME environment variable</b> <br />
 The React Native tools require some environment variables to be set up to build apps with native code.
 1.	Open the Windows Control Panel.
 2.	Click on User Accounts, then click User Accounts again
 3.	Click on Change my environment variables
 4.	Click on New... to create a new ANDROID_HOME user variable that points to the path to your Android SDK:
 ![Bird Eye View](https://github.com/adi99/Building-Mobile-Apps-on-Solana/blob/main/sdk.jpg)  
-3. Add platform-tools to Path <br />
+<b>c. Add platform-tools to Path </b><br />
 1.	Open the Windows Control Panel. <br />
 2.	Click on User Accounts, then click User Accounts again. <br />
 3.	Click on Change my environment variables. <br />
@@ -56,33 +57,34 @@ The React Native tools require some environment variables to be set up to build 
 The default location for this folder is: <br />
 ``%LOCALAPPDATA%\Android\Sdk\platform-tools`` <br />
 ## React Native Command Line Interface
-React Native has a built-in command line interface. Rather than install and manage a specific version of the CLI globally, we recommend you access the current version at runtime using npx, which ships with Node.js. With npx react-native <command>, the current stable version of the CLI will be downloaded and executed at the time the command is run. <br />
+React Native has a built-in command line interface. Rather than install and manage a specific version of the CLI globally, we recommend you access the current version at runtime using `npx`, which ships with Node.js. With `npx react-native <command>`, the current stable version of the CLI will be downloaded and executed at the time the command is run. <br />
 The fakewallet app is a 'fake' Mobile Wallet Adapter compliant wallet. Install it on your Android emulator or device. It does not store persistent keypairs, and the wallet is "reset" each time the app is exited.<br />
-### Installation steps <br />
-2.	Clone the Mobile Wallet Adapter repo, containing the fakewallet app from the github repository <br />
+## Installation steps <br />
+1. Install Android Studio and it's component.<br />
+2. Clone the Mobile Wallet Adapter repo, containing the fakewallet app from the github repository <br />
 ``git clone https://github.com/solana-mobile/mobile-wallet-adapter.git`` <br />
-4.	In Android Studio, Open project > Navigate to the cloned directory > Select mobile-wallet-adapter/android/build.gradle <br />
-5.	After Android Studio finishes loading the project, select fakewallet in the build/run configuration dropdown in the top right <br />
+3. In Android Studio, Open project > Navigate to the cloned directory > Select mobile-wallet-adapter/android/build.gradle <br />
+4. After Android Studio finishes loading the project, select fakewallet in the build/run configuration dropdown in the top right <br />
 ![Bird Eye View](https://github.com/adi99/Building-Mobile-Apps-on-Solana/blob/main/fakewallet.jpg)  
-6.	After it builds successfully, you should see the app on your Android device or emulator.<br />
+5. After it builds successfully, you should see the app on your Android device or emulator.<br />
 
 # React Native dApp Setup<br />
 Now you have setup Android Device/Emulator and  install a MWA-compatible wallet, like fakewallet. <br />
 ## Solana Mobile dApp Scaffold<br />
 The fastest way to start building React Native on Solana is building off our React Native Template dApp: <br />
 The scaffold is a ready-to-go React Native dApp that comes with:<br />
-•	The Mobile Wallet Adapter SDK and @solana/web3.js.<br />
-•	Required polyfills like react-native-get-random-values and Buffer installed.<br />
+•	The Mobile Wallet Adapter SDK and `@solana/web3.js`.<br />
+•	Required polyfills like `react-native-get-random-values` and `Buffer` installed.<br />
 •	Wallet authorization/connecting and airdrop request functionality.<br />
 •	Premade React UI Components like ConnectWalletButton, RequestAirdropButton, SignMessageButton.<br />
 ## Building Your first React Native dApp<br />
 A complete React Native Solana dApp that allows the user to select a photo from their gallery and mint it as an NFT on the blockchain.
-Prerequisites<br />
+### Prerequisites<br />
 •	a running Android emulator or device to build and launch your app.<br />
 •	an MWA-compatible wallet installed on the same device.<br />
 •	an IDE/Editor of your choice.<br />
 This tutorial will be using the fakewallet app to test your app's integration with Mobile Wallet Adapter.<br />
-Clone the React Native dApp Scaffold<br />
+## Clone the React Native dApp Scaffold<br />
 This dApp will build off the React Native Scaffold dApp which already has a simple user interface that allows you to connect to a mobile wallet, request an airdrop, and sign transactions.<br />
 Initialize a template app and Enter the directory and install the project dependencies.<br />
 ``npx react-native init FirstDappTutorial --template https://github.com/solana-mobile/solana-mobile-dapp-scaffold.git ``<br />
@@ -90,15 +92,15 @@ Initialize a template app and Enter the directory and install the project depend
 Make sure your emulator/device is running, then build and launch the app.<br />
 ``npx react-native run-android``<br />
 At this point, your app should build, install into your device, and launch automatically. You should also see the Metro Bundler console window pop up.<br />
-### Scaffold dApp Components <br />
+## Scaffold dApp Components <br />
 Now lets quickly go over the features of the dApp Scaffold.<br />
-Connect Button<br />
+### Connect Button<br />
 Clicking on the Connect Wallet button will 'connect' you to a locally installed MWA-compatible wallet. It uses the Mobile Wallet Adapter SDK to request authorization from the wallet and receives your wallet account's info, like the public key.<br />
-On click, it starts a wallet session with transact and calls authorizeSession from the AuthorizationProvider class.<br />
+On click, it starts a wallet session with transact and calls `authorizeSession` from the `AuthorizationProvider` class.<br />
 >     await transact(async wallet =>{<br />
     await authorizeSession(wallet);<br />
     });<br />
-AuthorizationProvider is a helper class that manages wallet authorization. It calls `wallet.authorize()` on first connect, and for subsequent connects it re-uses the authToken in `wallet.reauthorize()`.<br />
+`AuthorizationProvider` is a helper class that manages wallet authorization. It calls `wallet.authorize()` on first connect, and for subsequent connects it re-uses the authToken in `wallet.reauthorize()`.<br />
 >     const authorizeSession = useCallback(
     async (wallet: AuthorizeAPI & ReauthorizeAPI) => {
         const authorizationResult = await (authorization
@@ -117,9 +119,9 @@ AuthorizationProvider is a helper class that manages wallet authorization. It ca
     [authorization, handleAuthorizationResult],
      );
 <br />
-<b>Account Info</b><br />
-This is a simple component takes a balance in lamports and converts it to units of SOL for display. <br />
-Balance fetching<br />
+### Account Info<br />
+This is a simple component takes a balance in lamports and converts it to units of `SOL` for display. <br />
+<b>Balance fetching</b><br />
 In the `MainScreen.tsx` component, we fetch the user's wallet balance when it is available, and pass it into the AccountInfo component. To do so, we use the connection class and just call the getBalance function, which is part of the API spec.<br />
 >     const {connection} = useConnection();
      const fetchAndUpdateBalance = useCallback(
@@ -129,7 +131,7 @@ In the `MainScreen.tsx` component, we fetch the user's wallet balance when it is
     },
     [connection],
      );<br />
-<b>Airdrop Button</b><br />
+## Airdrop Button <br />
 This component takes in a user's wallet publicKey and requests an airdrop of lamports to that address on click. Again, we use the connection class and call the requestAirdrop RPC method, as part of the API spec.<br />
 >     const requestAirdrop = useCallback(async () => {
        const signature = await connection.requestAirdrop(
@@ -139,10 +141,10 @@ This component takes in a user's wallet publicKey and requests an airdrop of lam
     return await connection.confirmTransaction(signature);
      }, [connection, selectedAccount]);<br />
 
-<b>Sign Transaction/Message Button</b><br />
-The SignMessageButton component takes in a messageBuffer byte array and calls wallet.signMessages(). This requests the connected wallet to sign the message with the user's private key.<br />
-The SignTransactionButton component does several things on click. Within the wallet session, it constructs a Transaction with a SystemProgram.transfer instruction, then requests the wallet to provide a signature in the transaction.<br />
-
+## Sign Transaction/Message Button</b><br />
+The SignMessageButton component takes in a messageBuffer byte array and calls` wallet.signMessages()`. This requests the connected wallet to sign the message with the user's private key.<br />
+The `SignTransactionButton` component does several things on click. Within the wallet session, it constructs a Transaction with a `SystemProgram.transfer` instruction, then requests the wallet to provide a signature in the transaction.<br />
+<b>Sigm Message</b>
 >     const signMessage = useCallback(
     async (messageBuffer: Uint8Array) => {
         return await transact(async (wallet: Web3MobileWallet) => {
@@ -193,6 +195,40 @@ The SignTransactionButton component does several things on click. Within the wal
         return signedTransactions[0];
     }, [authorizeSession]);
      });
+<b>Sign Transaction</b>
+>     const signTransaction = useCallback(async () => {
+      return await transact(async (wallet: Web3MobileWallet) => {
+        const connection = new Connection(clusterApiUrl('devnet'), 'confirmed');
+
+        // First, request for authorization from the wallet and fetch the latest
+        // blockhash for building the transaction.
+        const [authorizationResult, latestBlockhash] = await Promise.all([
+            authorizeSession(wallet),
+            connection.getLatestBlockhash(),
+        ]);
+
+        // Construct a transaction. This transaction uses web3.js `SystemProgram`
+        // to create a transfer that sends lamports to randomly generated address.
+        const keypair = Keypair.generate();
+        const randomTransferTransaction = new Transaction({
+            ...latestBlockhash,
+            feePayer: authorizationResult.publicKey,
+        }).add(
+        SystemProgram.transfer({
+            fromPubkey: authorizationResult.publicKey,
+            toPubkey: keypair.publicKey,
+            lamports: 1_000,
+        }),
+        );
+
+        // Sign a transaction and receive
+        const signedTransactions = await wallet.signTransactions({
+            transactions: [randomTransferTransaction],
+        });
+
+        return signedTransactions[0];
+    }, [authorizeSession]);
+    });<br/>
 
 Now that we've gone over the existing scaffold, lets add some new functionality to it.<br />
 <b>Let’s Build Mobile NFT Minter:-</b><br />
