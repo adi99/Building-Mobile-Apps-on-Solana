@@ -8,6 +8,7 @@ Solana Mobile Stack (SMS) is an open-source development toolkit that enables dev
 The Solana Mobile Stack shows a new path forward on Solana that is open source, secure, optimized for web3, and easy to use. Developers can now bring the power of Solana to the computers in our pockets, not just our backpacks.
 ## Mobile dApp Architecture Overview
 Bird’s Eye view of Mobile DApp’s interaction with mobile wallet and Solana Network.
+![Bird Eye View](https://github.com/adi99/Building-Mobile-Apps-on-Solana/blob/main/dapp_architecture_full.svg)
 The Mobile Wallet Adapter (MWA) protocol is what defines the communication exchange between a dApp and a mobile wallet. In the protocol, the dApp sends requests (i.e: authorization or signing), while the wallet is responsible for displaying these requests to the user and responding to the dApp if approved.
 Development Setup
 Before starting you need the following perquisite for Android Mobile Development:-
