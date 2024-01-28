@@ -21,7 +21,7 @@ Before starting you need the following perquisite for Android Mobile Development
 The fakewallet app is a 'fake' Mobile Wallet Adapter compliant wallet. Install it on your Android emulator or device. It does not store persistent keypairs, and the wallet is "reset" each time the app is exited.<br />
 Installation steps<br />
 1.	Clone the Mobile Wallet Adapter repo, containing the fakewallet app from the GitHub repository<br />
-git clone https://github.com/solana-mobile/mobile-wallet-adapter.git <br />
+``git clone https://github.com/solana-mobile/mobile-wallet-adapter.git`` <br />
 2.	In Android Studio, Open project > Navigate to the cloned directory > Select mobile-wallet-adapter/android/build.gradle <br />
 3.	After Android Studio finishes loading the project, select fakewallet in the build/run configuration dropdown in the top right <br />
 ![Bird Eye View](https://github.com/adi99/Building-Mobile-Apps-on-Solana/blob/main/fakewallet.jpg) 
@@ -60,7 +60,7 @@ React Native has a built-in command line interface. Rather than install and mana
 The fakewallet app is a 'fake' Mobile Wallet Adapter compliant wallet. Install it on your Android emulator or device. It does not store persistent keypairs, and the wallet is "reset" each time the app is exited.<br />
 ### Installation steps <br />
 2.	Clone the Mobile Wallet Adapter repo, containing the fakewallet app from the github repository <br />
-git clone https://github.com/solana-mobile/mobile-wallet-adapter.git <br />
+``git clone https://github.com/solana-mobile/mobile-wallet-adapter.git`` <br />
 4.	In Android Studio, Open project > Navigate to the cloned directory > Select mobile-wallet-adapter/android/build.gradle <br />
 5.	After Android Studio finishes loading the project, select fakewallet in the build/run configuration dropdown in the top right <br />
 ![Bird Eye View](https://github.com/adi99/Building-Mobile-Apps-on-Solana/blob/main/fakewallet.jpg)  
@@ -85,8 +85,10 @@ This tutorial will be using the fakewallet app to test your app's integration wi
 Clone the React Native dApp Scaffold<br />
 This dApp will build off the React Native Scaffold dApp which already has a simple user interface that allows you to connect to a mobile wallet, request an airdrop, and sign transactions.<br />
 Initialize a template app and Enter the directory and install the project dependencies.<br />
+```
 npx react-native init FirstDappTutorial --template https://github.com/solana-mobile/solana-mobile-dapp-scaffold.git <br />
-cd FirstDappTutorial && yarn install<br />
+cd FirstDappTutorial && yarn install
+```<br />
 Make sure your emulator/device is running, then build and launch the app.<br />
 npx react-native run-android<br />
 At this point, your app should build, install into your device, and launch automatically. You should also see the Metro Bundler console window pop up.<br />
