@@ -54,7 +54,7 @@ The React Native tools require some environment variables to be set up to build 
 5.	Click Edit. <br />
 6.	Click New and add the path to platform-tools to the list. <br />
 The default location for this folder is: <br />
-%LOCALAPPDATA%\Android\Sdk\platform-tools <br />
+``%LOCALAPPDATA%\Android\Sdk\platform-tools`` <br />
 ## React Native Command Line Interface
 React Native has a built-in command line interface. Rather than install and manage a specific version of the CLI globally, we recommend you access the current version at runtime using npx, which ships with Node.js. With npx react-native <command>, the current stable version of the CLI will be downloaded and executed at the time the command is run. <br />
 The fakewallet app is a 'fake' Mobile Wallet Adapter compliant wallet. Install it on your Android emulator or device. It does not store persistent keypairs, and the wallet is "reset" each time the app is exited.<br />
