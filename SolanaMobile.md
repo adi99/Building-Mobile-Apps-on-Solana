@@ -247,7 +247,7 @@ In addition to the Metaplex JS SDK, the app will use several other libraries tha
 `npx react-native run-android` <br />
 At this point, your app should build, install into your device, and launch automatically.<br />
 
-###How does minting work?<br />
+### How does minting work?<br />
 The end to end procedure of minting a photo NFT roughly follows these steps:<br />
 1.	Select a photo and upload it to a storage provider.<br />
 2.	Upload a JSON object containing metadata that conforms to the Metaplex NFT Standard, to a storage provider.<br />
