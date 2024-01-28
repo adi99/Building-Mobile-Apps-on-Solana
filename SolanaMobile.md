@@ -99,7 +99,7 @@ On click, it starts a wallet session with transact and calls authorizeSession fr
    `` await authorizeSession(wallet);``<br />
 ``});``<br />
 AuthorizationProvider is a helper class that manages wallet authorization. It calls `wallet.authorize()` on first connect, and for subsequent connects it re-uses the authToken in `wallet.reauthorize()`.<br />
-```const authorizeSession = useCallback(
+>     //const authorizeSession = useCallback(
     async (wallet: AuthorizeAPI & ReauthorizeAPI) => {
         const authorizationResult = await (authorization
         ? wallet.reauthorize({
@@ -115,7 +115,7 @@ AuthorizationProvider is a helper class that manages wallet authorization. It ca
         .selectedAccount;
     },
     [authorization, handleAuthorizationResult],
-);```
+);
 <br />
 Account Info<br />
 This is a simple component takes a balance in lamports and converts it to units of SOL for display. <br />
