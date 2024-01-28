@@ -131,7 +131,7 @@ In the `MainScreen.tsx` component, we fetch the user's wallet balance when it is
     },
     [connection],
      );<br />
-## Airdrop Button <br />
+### Airdrop Button <br />
 This component takes in a user's wallet publicKey and requests an airdrop of lamports to that address on click. Again, we use the connection class and call the requestAirdrop RPC method, as part of the API spec.<br />
 >     const requestAirdrop = useCallback(async () => {
        const signature = await connection.requestAirdrop(
@@ -141,7 +141,7 @@ This component takes in a user's wallet publicKey and requests an airdrop of lam
     return await connection.confirmTransaction(signature);
      }, [connection, selectedAccount]);<br />
 
-## Sign Transaction/Message Button</b><br />
+### Sign Transaction/Message Button</b><br />
 The SignMessageButton component takes in a messageBuffer byte array and calls` wallet.signMessages()`. This requests the connected wallet to sign the message with the user's private key.<br />
 The `SignTransactionButton` component does several things on click. Within the wallet session, it constructs a Transaction with a `SystemProgram.transfer` instruction, then requests the wallet to provide a signature in the transaction.<br />
 <b>Sigm Message</b>
