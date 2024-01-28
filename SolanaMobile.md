@@ -99,7 +99,7 @@ On click, it starts a wallet session with transact and calls authorizeSession fr
    `` await authorizeSession(wallet);``<br />
 ``});``<br />
 AuthorizationProvider is a helper class that manages wallet authorization. It calls `wallet.authorize()` on first connect, and for subsequent connects it re-uses the authToken in `wallet.reauthorize()`.<br />
->     //const authorizeSession = useCallback(
+>     const authorizeSession = useCallback(
     async (wallet: AuthorizeAPI & ReauthorizeAPI) => {
         const authorizationResult = await (authorization
         ? wallet.reauthorize({
@@ -115,35 +115,35 @@ AuthorizationProvider is a helper class that manages wallet authorization. It ca
         .selectedAccount;
     },
     [authorization, handleAuthorizationResult],
-);
+>     );
 <br />
-Account Info<br />
+<b>Account Info</b><br />
 This is a simple component takes a balance in lamports and converts it to units of SOL for display. <br />
 Balance fetching<br />
-In the MainScreen.tsx component, we fetch the user's wallet balance when its available, and pass it into the AccountInfo component. To do so, we use the connection class and just call the getBalance function, which is part of the API spec.<br />
-const {connection} = useConnection();
-const fetchAndUpdateBalance = useCallback(
+In the `MainScreen.tsx` component, we fetch the user's wallet balance when it is available, and pass it into the AccountInfo component. To do so, we use the connection class and just call the getBalance function, which is part of the API spec.<br />
+>     const {connection} = useConnection();
+>     const fetchAndUpdateBalance = useCallback(
     async (account: Account) => {
         const fetchedBalance = await connection.getBalance(account.publicKey);
         setBalance(fetchedBalance);
     },
     [connection],
-);<br />
-Airdrop Button<br />
+>     );<br />
+<b>Airdrop Button</b><br />
 This component takes in a user's wallet publicKey and requests an airdrop of lamports to that address on click. Again, we use the connection class and call the requestAirdrop RPC method, as part of the API spec.<br />
-const requestAirdrop = useCallback(async () => {
-    const signature = await connection.requestAirdrop(
+>     const requestAirdrop = useCallback(async () => {
+       const signature = await connection.requestAirdrop(
         selectedAccount.publicKey,
         LAMPORTS_PER_AIRDROP,
     );
     return await connection.confirmTransaction(signature);
-}, [connection, selectedAccount]);
-Sign Transaction/Message Button<br />
+>     }, [connection, selectedAccount]);<br />
+
+<b>Sign Transaction/Message Button</b><br />
 The SignMessageButton component takes in a messageBuffer byte array and calls wallet.signMessages(). This requests the connected wallet to sign the message with the user's private key.<br />
 The SignTransactionButton component does several things on click. Within the wallet session, it constructs a Transaction with a SystemProgram.transfer instruction, then requests the wallet to provide a signature in the transaction.<br />
 
-
-const signMessage = useCallback(
+>     const signMessage = useCallback(
     async (messageBuffer: Uint8Array) => {
         return await transact(async (wallet: Web3MobileWallet) => {
         // First, request for authorization from the wallet.
@@ -159,8 +159,8 @@ const signMessage = useCallback(
         });
     },
     [authorizeSession],
-);
-const signTransaction = useCallback(async () => {
+>     );
+>     const signTransaction = useCallback(async () => {
     return await transact(async (wallet: Web3MobileWallet) => {
         const connection = new Connection(clusterApiUrl('devnet'), 'confirmed');
 
@@ -197,22 +197,22 @@ const signTransaction = useCallback(async () => {
 Now that we've gone over the existing scaffold, lets add some new functionality to it.<br />
 <b>Let’s Build Mobile NFT Minter:-</b><br />
 For this you need additional perquisite for the Dapp:- <br />
-•	@metaplex-foundation/js for a client API to interact with on chain programs, for minting/creating NFTs. <br />
-•	IPFS for a decentralized storage provider to host NFT image and metadata. <br />
-Install Metaplex JS SDK<br />
-The next step is to install the @metaplex-foundation/js package. This is the Metaplex JS SDK that provides a developer friendly API to interact with onchain programs. <br />
-yarn add @metaplex-foundation/js <br />
+•	`@metaplex-foundation/js` for a client API to interact with on chain programs, for minting/creating NFTs. <br />
+•	`IPFS` for a decentralized storage provider to host NFT image and metadata. <br />
+<b>Install Metaplex JS SDK<b><br />
+The next step is to install the `@metaplex-foundation/js` package. This is the Metaplex JS SDK that provides a developer friendly API to interact with onchain programs. <br />
+``yarn add @metaplex-foundation/js`` <br />
 The Metaplex JS SDK was originally written for a Browser/Node environment, so certain dependencies aren't immediately available on React Native. These polyfill libraries will fill in the missing libraries and enable React Native compatibility.<br />
-yarn add \
+>     yarn add \
     assert \
     crypto-browserify \
     readable-stream \
     zlib \
     react-native-url-polyfill
-Add polyfills to resolver in metro.config.js <br />
+Add polyfills to resolver in `metro.config.js` <br />
 Adding the resolver property lets the Metro know which packages to substitute with when seeing a require <br />
-module.exports = {
-  resolver: {
+>     module.exports = {
+>     resolver: {
     extraNodeModules: {
       crypto: require.resolve('crypto-browserify'),
       stream: require.resolve('readable-stream'),
@@ -220,34 +220,34 @@ module.exports = {
       path: require.resolve('path-browserify'),
       url: require.resolve('react-native-url-polyfill'),
     },
-  },
-  transformer: {
+  >     },
+  >     transformer: {
     getTransformOptions: async () => ({
       transform: {
         experimentalImportSupport: false,
         inlineRequires: true,
       },
     }),
-  },
-};
+    },
+    };
  Add imports to index.js
-import 'react-native-url-polyfill/auto'; // Add this before the 'App' import!
-import {AppRegistry} from 'react-native';
-import App from './App';
-import {name as appName} from './app.json';
-AppRegistry.registerComponent(appName, () => App);<br />
-Install other dependencies<br />
+>     import 'react-native-url-polyfill/auto'; // Add this before the 'App' import!
+      import {AppRegistry} from 'react-native';
+      import App from './App';
+      import {name as appName} from './app.json';
+      AppRegistry.registerComponent(appName, () => App);<br />
+<b>Install other dependencies</b><br />
 In addition to the Metaplex JS SDK, the app will use several other libraries that handle other usecases, like file reading, IPFS, and others. Some of these are opinionated, so feel free to swap out a library with one of your choice.<br />
-yarn install \
+>     yarn install \
     rn-fetch-blob \
     react-native-image-picker \
     react-native-config \
     multiformats<br />
-4. Launch the app <br />
-npx react-native run-android<br />
+ <b>Launch the app </b><br />
+`npx react-native run-android` <br />
 At this point, your app should build, install into your device, and launch automatically.<br />
 
-How does minting work?<br />
+###How does minting work?<br />
 The end to end procedure of minting a photo NFT roughly follows these steps:<br />
 1.	Select a photo and upload it to a storage provider.<br />
 2.	Upload a JSON object containing metadata that conforms to the Metaplex NFT Standard, to a storage provider.<br />
